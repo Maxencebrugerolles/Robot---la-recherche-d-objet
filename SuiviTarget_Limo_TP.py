@@ -105,5 +105,5 @@ if __name__ == '__main__':
     ts = message_filters.ApproximateTimeSynchronizer([command_sub], 10, 0.1, allow_headerless=True)
 
     print("C'est parti... ")
-    rospy.spin()
+    rospy.spin() 
 
