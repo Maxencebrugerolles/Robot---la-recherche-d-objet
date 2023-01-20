@@ -63,21 +63,6 @@ def callback_laser(laser, odometry):
         
     pub.publish(move_cmd)
     
-    move_cmd.linear.x = y
-    pub.publish(move_cmd)
-    
-    
-    
-    # distance et orientation par rapport au mur
-    theta = 0
-    d = 0
-    print(theta)
-    print(d)    
-    
-    # vitesse lineaire et angulaire du robot
-    move_cmd.linear.x = 0.1
-    move_cmd.angular.z = - theta
-    
     # on s'assure qu'on ne depasse pas les vitesses max
     if move_cmd.linear.x > speed_max:
         move_cmd.linear.x = speed_max
