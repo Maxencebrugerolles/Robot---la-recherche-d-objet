@@ -33,7 +33,26 @@ def callback_laser(laser, odometry):
     # ...
     # laser.ranges[14] correspond a la distance suivant un angle de 1.3 radian
     # laser.ranges[15] correspond a la distance suivant un angle de 1.5 radian
-
+    
+    a=laser.range[0]
+    b=laser.range[1]
+    c=laser.range[2]
+    d=laser.range[3]
+    e=laser.range[4]
+    f=laser.range[5]
+    g=laser.range[6]
+    h=laser.range[7]
+    i=laser.range[8]
+    j=laser.range[9]
+    k=laser.range[10]
+    l=laser.range[11]
+    m=laser.range[12]
+    n=laser.range[13]
+    o=laser.range[14]
+    p=laser.range[15]
+    
+    m=min(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
+    
     # distance et orientation par rapport au mur
     theta = 0
     d = 0
