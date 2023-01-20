@@ -51,7 +51,47 @@ def callback_laser(laser, odometry):
     o=laser.range[14]
     p=laser.range[15]
     
-    m=min(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
+    y=min(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
+    return y
+
+    if y==a:
+        move_cmd.angular.z=-1.5
+    elif y==b:
+        move_cmd.angular.z=-1.3
+    elif y==c:
+        move_cmd.angular.z=-1.1
+    elif y==d:
+        move_cmd.angular.z=-0.9
+    elif y==e:
+        move_cmd.angular.z=-0.7
+    elif y==f:
+        move_cmd.angular.z=-0.5
+    elif y==g:
+        move_cmd.angular.z=-0.3
+    elif y==h:
+        move_cmd.angular.z=-0.1
+    elif y==i:
+        move_cmd.angular.z=0.1
+    elif y==j:
+        move_cmd.angular.z=0.3
+    elif y==k:
+        move_cmd.angular.z=0.5
+    elif y==l:
+        move_cmd.angular.z=0.7
+    elif y==m:
+        move_cmd.angular.z=0.9
+    elif y==n:
+        move_cmd.angular.z=1.1
+    elif y==o:
+        move_cmd.angular.z=1.3
+    elif y==p:
+        move_cmd.angular.z=1.5  
+    pub.publish(move_cmd)
+    
+    move_cmd.linear.x = y
+    pub.publish(move_cmd)
+    
+    
     
     # distance et orientation par rapport au mur
     theta = 0
