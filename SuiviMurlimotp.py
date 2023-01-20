@@ -24,68 +24,43 @@ def callback_laser(laser, odometry):
     print("Inside Callback Laser,Odometry: ")
     global omega_max
     global speed_max
-    
-    #  code a mettre
-    
-    # localisation du mur  a partir du laser
-    # laser.ranges[0] correspond a la distance suivant un angle de -1.5 radian
-    # laser.ranges[1] correspond a la distance suivant un angle de -1.3 radian
-    # ...
-    # laser.ranges[14] correspond a la distance suivant un angle de 1.3 radian
-    # laser.ranges[15] correspond a la distance suivant un angle de 1.5 radian
+
+    d=0.2 #distance acceptable pour juger que la voie est libre
     
     a=laser.range[0]
-    b=laser.range[1]
-    c=laser.range[2]
-    d=laser.range[3]
-    e=laser.range[4]
-    f=laser.range[5]
-    g=laser.range[6]
-    h=laser.range[7]
-    i=laser.range[8]
-    j=laser.range[9]
-    k=laser.range[10]
-    l=laser.range[11]
-    m=laser.range[12]
-    n=laser.range[13]
-    o=laser.range[14]
-    p=laser.range[15]
+    b=laser.range[8]
+    c=laser.range[15]
     
-    y=min(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
-    return y
-
-    if y==a:
-        move_cmd.angular.z=-1.5
-    elif y==b:
-        move_cmd.angular.z=-1.3
-    elif y==c:
-        move_cmd.angular.z=-1.1
-    elif y==d:
-        move_cmd.angular.z=-0.9
-    elif y==e:
-        move_cmd.angular.z=-0.7
-    elif y==f:
-        move_cmd.angular.z=-0.5
-    elif y==g:
-        move_cmd.angular.z=-0.3
-    elif y==h:
-        move_cmd.angular.z=-0.1
-    elif y==i:
-        move_cmd.angular.z=0.1
-    elif y==j:
-        move_cmd.angular.z=0.3
-    elif y==k:
-        move_cmd.angular.z=0.5
-    elif y==l:
-        move_cmd.angular.z=0.7
-    elif y==m:
-        move_cmd.angular.z=0.9
-    elif y==n:
-        move_cmd.angular.z=1.1
-    elif y==o:
-        move_cmd.angular.z=1.3
-    elif y==p:
-        move_cmd.angular.z=1.5  
+    while a>0 && b>0 && c>0:
+        if a>=d:
+            move_cmd.angular.z=-1,5708
+            time.sleep(1000)
+            move_cmd.angular.z=0
+            move_cmd.linear.x=0.1
+            time.sleep(1000)
+            move_cmd.linear.x=0
+        else:
+            if b>=d:
+                move_cmd.linear.x=0.1
+                time.sleep(1000)
+                move_cmd.linear.x=0
+            else:
+                if a>=d:
+                    move_cmd.angular.z=1,5708
+                    time.sleep(1000)
+                    move_cmd.angular.z=0
+                    move_cmd.linear.x=0.1
+                    time.sleep(1000)
+                    move_cmd.linear.x=0
+                else:
+                    move_cmd.angular.z=3,141592
+                    time.sleep(1000)
+                    move_cmd.angular.z=0
+                end
+            end
+        end
+        
+        
     pub.publish(move_cmd)
     
     move_cmd.linear.x = y
