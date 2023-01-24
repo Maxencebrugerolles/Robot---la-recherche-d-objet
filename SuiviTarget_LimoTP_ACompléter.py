@@ -30,14 +30,48 @@ def callback_laser(laser, odometry , markers):
     global omega_max
     global current_marker
 
-    #  code a mettre
+d=0.2 #distance acceptable pour juger que la voie est libre
     
-    # localisation du mur  a partir du laser
-    # laser.ranges[0] correspond a la distance suivant un angle de -1.5 radian
-    # laser.ranges[1] correspond a la distance suivant un angle de -1.3 radian
-    # ...
-    # laser.ranges[14] correspond a la distance suivant un angle de 1.3 radian
-    # laser.ranges[15] correspond a la distance suivant un angle de 1.5 radian
+    #on définit les extremums des lasers du lidar ainsi que le milieu
+    a=laser.range[0] 
+    b=laser.range[8]
+    c=laser.range[15]
+    
+    #On créé une boucle logique pour que le robot sache où se déplacer 
+    while a>0 && b>0 && c>0:
+        if a>=d:                                            #On vérifie que le robot ait la place de se déplacer à droite 
+            move_cmd.angular.z=-1,5708 #
+            time.sleep(1000)           #
+            move_cmd.angular.z=0       # si oui
+            move_cmd.linear.x=0.1      #
+            time.sleep(1000)           #
+            move_cmd.linear.x=0        #
+        else:                                               #si non
+            if b>=d:                                        #On vérifie que le robot ait la place de se déplacer au centre
+                move_cmd.linear.x=0.1 #
+                time.sleep(1000)      #si oui
+                move_cmd.linear.x=0   #
+            else:                                            #si non
+                if a>=d:                                     #On vérifie que le robot ait la place de se déplacer à gauche
+                    move_cmd.angular.z=1,5708 #
+                    time.sleep(1000)          #
+                    move_cmd.angular.z=0      #
+                    move_cmd.linear.x=0.1     #si oui
+                    time.sleep(1000)          #
+                    move_cmd.linear.x=0       #
+                else:                                        #si non on fait un demi tour
+                    move_cmd.angular.z=3,141592 
+                    time.sleep(1000)
+                    move_cmd.angular.z=0
+                end
+            end
+        end
+    end
+        
+        
+        
+    pub.publish(move_cmd)
+
 
     # distance et orientation par rapport au mur
     theta = 0
