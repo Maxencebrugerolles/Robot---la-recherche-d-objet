@@ -1,4 +1,5 @@
-1 - Dans un terminal, lancer "roscore"
+<!-- 1 - Dans un terminal, lancer "roscore"
 2 - Dans un second terminal, écrire dans le répertoire où se trouve le noeud à lancer : "chmod a+x Nomnoeud.py" #on rend le fichier executable#
 3 - Il faut sourcer le noeud. Dans le même terùinal, écrire " source....(chemin du workspace)/devel/setup.bash
 4 - Pour lancer le noeud : "rosrun repertoire Nomnoeud.py"  Pour voir si le noeud marche, dans le cas d'un Publisher, on fait "rostopic echo Nomtopic"
+-->
