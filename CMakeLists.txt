@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(limo_tp)
+project(projetpeip)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -114,7 +114,7 @@ catkin_package(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES limo_tp
+#  LIBRARIES projetpeip
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -132,7 +132,7 @@ ${catkin_INCLUDE_DIRS}
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/limo_tp.cpp
+#   src/${PROJECT_NAME}/projetpeip.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -150,7 +150,7 @@ target_link_libraries(auto_manu_mode ${catkin_LIBRARIES})
 
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/limo_tp_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/projetpeip_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -214,7 +214,7 @@ target_link_libraries(auto_manu_mode ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_limo_tp.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_projetpeip.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
