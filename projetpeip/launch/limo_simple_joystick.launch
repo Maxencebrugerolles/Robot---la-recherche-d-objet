@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+    
+  <arg name="simulation" default="false"/>
+  <arg name="joy_dev" default="/dev/input/js0"/>
+  <arg name="mode_robot_environnement" default="reel"/> <!-- "reel" ou "simu" -->
+  <arg name="speed_max" default="0.5"/>
+  <arg name="omega_max" default="2.0"/>
+  <arg name="use_joy" default="true"/>
+  
+  <arg name="cmd_switch_config" default="$(find limo_tp)/config/limo_filter_cmd.yaml"/>  
+  
+  
+  <group if="$(eval arg('use_joy'))">    
+    <node name="joy" pkg="joy" type="joy_node" output="screen">
+        <param name="dev" value="$(arg joy_dev)" />
+        <param name="deadzone" value="0.3" />
+        <param name="autorepeat_rate" value="0.0" />
+    </node>  
+  
+    <node name="control_manu" pkg="limo_tp" type="JoystickControl.py" output="screen">
+        <param name="speed_max" value="$(arg speed_max)" />
+        <param name="omega_max" value="$(arg omega_max)" />
+        <param name="mode" value="$(arg mode_robot_environnement)" />
+        <param name="cmd_vel_pub_name" value="/manu_cmd_vel" />
+    </node>
+    
+  </group>
+  
+  
+  
+  <group if="$(eval arg('simulation') == 'false')">    
+    <node name="scan_simplifier" pkg="limo_tp" type="ScanSimplifier.py" output="screen"/>
+    <node pkg="rviz" type="rviz" name="laser_rviz" args="-d $(find limo_tp)/rviz/lidar_view.rviz"/>      
+    
+  </group>
+  
+  
+  <group if="$(eval arg('simulation'))">    
+    <node name="scan_simplifier" pkg="limo_tp" type="ScanSimplifier.py" output="screen">
+            <remap from="/scan" to="/limo/scan"/>     
+    </node>      
+  </group>
+
+
+    <node pkg="limo_tp" type="auto_manu_mode" name="cmd_switch" output="screen">
+        <rosparam command="load" file="$(arg cmd_switch_config)" />
+        <param name="use_joy" value="$(arg use_joy)"/>
+    </node>
+
+    
+  
+</launch>
+
