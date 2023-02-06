@@ -25,7 +25,7 @@ def callback_laser(laser, odometry):
     global omega_max
     global speed_max
     
-    d=0.2                                                   #distance acceptable pour juger que la voie est libre
+    d=5                                                   #distance acceptable pour juger que la voie est libre
     
                                                             #on definit les extremums des lasers du lidar ainsi que le milieu
     a=laser.ranges[0] 
@@ -33,25 +33,41 @@ def callback_laser(laser, odometry):
     c=laser.ranges[15]
     
                                                             #On cree une boucle logique pour que le robot sache ou se deplacer 
-    if a>0 and b>0 and c>0:
+    while a<100 and b<100 and c<100:
         if a>=d:                                            #On verifie que le robot a la place de se deplacer a droite 
             move_cmd.angular.z=-1,5708                        #                                  
             move_cmd.angular.z=0                              # si oui
             move_cmd.linear.x=0.1                             # 
-            move_cmd.linear.x=0                               #
+            move_cmd.linear.x=0   
+            a=laser.ranges[0] 
+            b=laser.ranges[8]
+            c=laser.ranges[15]
         else:                                                 #si non
             if b>=d:                                            #On verifie que le robot a la place de se deplacer au centre
                 move_cmd.linear.x=0.1                              #si oui
-                move_cmd.linear.x=0                                #
+                move_cmd.linear.x=0
+                a=laser.ranges[0] 
+                b=laser.ranges[8]
+                c=laser.ranges[15]
             else:                                                  #si non
                 if a>=d:                                              #On verifie que le robot a la place de se deplacer a gauche
                     move_cmd.angular.z=1,5708                         #
                     move_cmd.angular.z=0                              #
                     move_cmd.linear.x=0.1                             #si oui
-                    move_cmd.linear.x=0                               #
+                    move_cmd.linear.x=0
+                    a=laser.ranges[0] 
+                    b=laser.ranges[8]
+                    c=laser.ranges[15]
                 else:                                                 #si non on fait un demi tour
                     move_cmd.angular.z=3,141592 
                     move_cmd.angular.z=0
+                    a=laser.ranges[0] 
+                    b=laser.ranges[8]
+                    c=laser.ranges[15]
+                    
+        a=laser.ranges[0] 
+        b=laser.ranges[8]
+        c=laser.ranges[15]
         
         
         
