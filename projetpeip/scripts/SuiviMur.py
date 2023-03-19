@@ -2,6 +2,7 @@
 
 import math
 import rospy
+import numpy
 import message_filters
 from sensor_msgs.msg import LaserScan
 #from jaguar.msg import OdometryNative
@@ -34,7 +35,7 @@ def callback_laser(laser, odometry):
     b=laser.ranges[14] 
     c=laser.ranges[15]
     
-    theta=arctan((b*cos(a)-c)/(sin(a)*b))
+    theta=numpy.arctan((b*numpy.cos(a)-c)/(numpy.sin(a)*b))
 
     move_cmd.angular.z=-theta
     move_cmd.linear.x=0.1
