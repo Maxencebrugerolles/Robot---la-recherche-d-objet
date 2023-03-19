@@ -29,9 +29,8 @@ def callback_laser(laser, odometry):
     global omega_max
     global speed_max
     
-    a=180/15                                                   #distance acceptable pour juger que la voie est libre
-    
-                                                            #on definit les extremums des lasers du lidar ainsi que le milieu
+    a=180/15                                                   
+                                                       
     b=laser.ranges[14] 
     c=laser.ranges[15]
     
