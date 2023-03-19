@@ -19,57 +19,37 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
-    
+#linear_vel:(float)
+#angular_vel:(float)
+#lateral_velocity:(float)
+#steering_angle:(float)
+
 def callback_laser(laser, odometry):
     print("Inside Callback Laser,Odometry: ")
     global omega_max
     global speed_max
     
-    d=5                                                   #distance acceptable pour juger que la voie est libre
+    a=180/15                                                   #distance acceptable pour juger que la voie est libre
     
                                                             #on definit les extremums des lasers du lidar ainsi que le milieu
-    a=laser.ranges[0] 
-    b=laser.ranges[8]
+    b=laser.ranges[14] 
     c=laser.ranges[15]
     
-                                                            #On cree une boucle logique pour que le robot sache ou se deplacer 
-    while a<100 and b<100 and c<100:
-        if a>=d:                                            #On verifie que le robot a la place de se deplacer a droite 
-            move_cmd.angular.z=-1,5708                        #                                  
-            move_cmd.angular.z=0                              # si oui
-            move_cmd.linear.x=0.1                             # 
-            move_cmd.linear.x=0   
-            a=laser.ranges[0] 
-            b=laser.ranges[8]
-            c=laser.ranges[15]
-        else:                                                 #si non
-            if b>=d:                                            #On verifie que le robot a la place de se deplacer au centre
-                move_cmd.linear.x=0.1                              #si oui
-                move_cmd.linear.x=0
-                a=laser.ranges[0] 
-                b=laser.ranges[8]
-                c=laser.ranges[15]
-            else:                                                  #si non
-                if a>=d:                                              #On verifie que le robot a la place de se deplacer a gauche
-                    move_cmd.angular.z=1,5708                         #
-                    move_cmd.angular.z=0                              #
-                    move_cmd.linear.x=0.1                             #si oui
-                    move_cmd.linear.x=0
-                    a=laser.ranges[0] 
-                    b=laser.ranges[8]
-                    c=laser.ranges[15]
-                else:                                                 #si non on fait un demi tour
-                    move_cmd.angular.z=3,141592 
-                    move_cmd.angular.z=0
-                    a=laser.ranges[0] 
-                    b=laser.ranges[8]
-                    c=laser.ranges[15]
-                    
-        a=laser.ranges[0] 
-        b=laser.ranges[8]
-        c=laser.ranges[15]
-        
-        
+    theta=arctan((b*cos(a)-c)/(sin(a)*b))
+
+    move_cmd.angular.z=-theta
+    move_cmd.linear.x=0.1
+    
+    if c>0,2:
+        move_cmd.angular.z=a
+        move_cmd.linear.x=0.1
+        if b=0,2:
+            move_cmd.angular.z=-a
+            move_cmd.linear.x=0.1
+    if c<0,2:
+        move_cmd.angular.z=-a
+        move_cmd.linear.x=0.1
+  
         
     #pub.publish(move_cmd) 
     
