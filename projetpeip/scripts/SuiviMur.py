@@ -44,7 +44,7 @@ def callback_laser(laser, odometry):
         move_cmd.angular.z=-a
         move_cmd.linear.x=0.1
         print("a")
-        if c==0.2:
+        if b==0.2:
             move_cmd.angular.z=a
             move_cmd.linear.x=0.1
             print("b")
@@ -52,7 +52,10 @@ def callback_laser(laser, odometry):
         move_cmd.angular.z=a
         move_cmd.linear.x=0.1
         print("c")
-  
+        if b==0.2:
+            move_cmd.angular.z=-a
+            move_cmd.linear.x=0.1
+            print("d")
         
     #pub.publish(move_cmd) 
     
