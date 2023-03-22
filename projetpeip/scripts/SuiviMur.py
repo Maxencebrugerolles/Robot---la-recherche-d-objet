@@ -35,24 +35,24 @@ def callback_laser(laser, odometry):
     b=laser.ranges[14] 
     c=laser.ranges[15]
     
-    theta=(numpy.arctan((b*numpy.cos(a)-c)/(numpy.sin(a)*b)))*(3,14/180)
+    theta=(numpy.arctan((b*numpy.cos(a)-c)/(numpy.sin(a)*b)))*(3.14/180)
 
     move_cmd.linear.x=0.05
     
-    if c>20:
+    if c>0.2:
         move_cmd.angular.z=a
         move_cmd.linear.x=0.05
         print("a")
-        if b==20:
+        if b==0.2:
             move_cmd.angular.z=a
             move_cmd.linear.x=0.05
             print("b")
             move_cmd.angular.z=-theta
-    if c<20:
+    if c<0.2:
         move_cmd.angular.z=a
         move_cmd.linear.x=0.05
         print("c")
-        if b==20:
+        if b==0.2:
             move_cmd.angular.z=a
             move_cmd.linear.x=0.05
             print("d")
