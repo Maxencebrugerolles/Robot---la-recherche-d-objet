@@ -6,7 +6,7 @@
     <arg name="omega_max" default="2.0"/>
     
     
-    <!--   <include file="$(find limo_tp)/launch/limo_simple_joystick.launch">
+    <!--   <include file="$(find projetpeip)/launch/limo_simple_joystick.launch">
         <arg name="mode_robot_environnement" value="reel"/>
         <arg name="speed_max" value="$(arg speed_max)"/>
         <arg name="omega_max" value="$(arg omega_max)"/>
@@ -15,7 +15,7 @@
         <arg name="joy_dev" value="$(arg joy_dev)" />
     </include>-->
     
-    <node name="target" pkg="limo_tp" type="SuiviTarget.py" output="screen"/>
+    <node name="target" pkg="projetpeip" type="SuiviTarget.py" output="screen"/>
   
 </launch>
 
