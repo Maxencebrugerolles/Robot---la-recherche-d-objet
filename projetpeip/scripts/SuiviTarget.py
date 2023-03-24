@@ -2,6 +2,7 @@
 
 import math
 import rospy
+import numpy
 import message_filters
 from sensor_msgs.msg import LaserScan
 #from jaguar.msg import OdometryNative
@@ -15,7 +16,7 @@ from nav_msgs.msg import Path
 
 from aruco_msgs.msg import MarkerArray
 
-pub = rospy.Publisher('/auto_cmd_vel', Twist, queue_size = 1)
+pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
 move_cmd = Twist()
 
 speed_max = 0.5
@@ -30,21 +31,11 @@ def callback_laser(laser, odometry , markers):
     global omega_max
     global current_marker
 
-    #  code a mettre
     
-    # localisation du mur  a partir du laser
-    # laser.ranges[0] correspond a la distance suivant un angle de -1.5 radian
-    # laser.ranges[1] correspond a la distance suivant un angle de -1.3 radian
-    # ...
-    # laser.ranges[14] correspond a la distance suivant un angle de 1.3 radian
-    # laser.ranges[15] correspond a la distance suivant un angle de 1.5 radian
+# code suivi mur 
 
-    # distance et orientation par rapport au mur
-    theta = 0
-    d = 0
-    print(theta)
-    print(d)    
-    
+# type de message : std_msgs/UInt32MultiArray
+
     dist = -1
     for i in range(len(markers.markers)):
         if markers.markers[i].id==current_marker:
@@ -58,7 +49,7 @@ def callback_laser(laser, odometry , markers):
             cote = markers.markers[i].pose.pose.position.x
             
             # si on est a moins de 1 metre du marqueur courant on change de marqueur
-            if dist < 1:
+            if dist < 10:
                 current_marker = current_marker +1
                 print ("Now following ",  current_marker)
     
