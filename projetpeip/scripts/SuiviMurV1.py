@@ -37,41 +37,26 @@ def callback_laser(laser, odometry):
     print("a = ",a)
     print("b = ",b)
     print("c = ",c)
-    print("d = ",d)#On cree une boucle logique pour que le robot sache ou se deplacer 
-    if a>0 and b>0 and c>0:
+    print("d = ",d)
+
+    if a>0 and b>0 and c>0:                         #On cree une boucle logique pour que le robot sache ou se deplacer 
         if a>=d:                                            #On verifie que le robot a la place de se deplacer a droite 
-            print("case A")
-            move_cmd.angular.z=-0.2                      #                                  
-            #move_cmd.angular.z=0                              # si oui
-            move_cmd.linear.x=0.1                             # 
-            #move_cmd.linear.x=0                               #
-        else:           
-            print("case B")#si non
-            if b>=d:       
-                print("case C")#On verifie que le robot a la place de se deplacer au centre
-                move_cmd.linear.x=0.1                              #si oui
-                #move_cmd.linear.x=0                                #
-            else:              
-                print("case D")#si non
-                if a>=d:       
-                    print("case E")#On verifie que le robot a la place de se deplacer a gauche
-                    move_cmd.angular.z=0.2                         #
-                    #move_cmd.angular.z=0                              #
-                    move_cmd.linear.x=0.1                             #si oui
-                    #move_cmd.linear.x=0                               #
-                else:              
-                    print("case F")#si non on fait un demi tour
+            move_cmd.angular.z=-0.2                             # si oui                                  
+            move_cmd.linear.x=0.1                               # 
+        else:                                                   #si non        
+            if b>=d:                                        #On verifie que le robot a la place de se deplacer au centre
+                move_cmd.linear.x=0.1                           #si oui
+
+            else:                                               #si non
+                if a>=d:                                    #On verifie que le robot a la place de se deplacer a gauche
+                    move_cmd.angular.z=0.2                      #si oui
+                    move_cmd.linear.x=0.1                       #
+                else:                                       #si non on fait un demi tour
                     move_cmd.angular.z=0.2
-                    #move_cmd.angular.z=0
-    else:
-        print("case G")
+
         
-        
-    #pub.publish(move_cmd) 
+       
     
-    # vitesse lineaire et angulaire du robot
-    #move_cmd.linear.x = 0.1  #versionner tout le paquet et pas uniquement le script (c'est a dire les fichiers CMakeLists.txt, package.xml et les repertoire).
-    #move_cmd.angular.z = - theta
     
     # on s'assure qu'on ne depasse pas les vitesses max
     if move_cmd.linear.x > speed_max:
