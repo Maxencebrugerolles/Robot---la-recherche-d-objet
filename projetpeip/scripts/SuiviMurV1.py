@@ -25,11 +25,7 @@ def callback_laser(laser, odometry):
     global omega_max
     global speed_max
     
-    
-
-    
-    
-                      
+                       
     a=laser.ranges[0]                                       #on definit les extremums des lasers du lidar ainsi que le milieu
     b=laser.ranges[8]
     c=laser.ranges[15]
