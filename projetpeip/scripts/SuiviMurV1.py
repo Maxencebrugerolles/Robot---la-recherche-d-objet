@@ -41,7 +41,7 @@ def callback_laser(laser, odometry):
 
     if a>0 and b>0 and c>0:                         #On cree une boucle logique pour que le robot sache ou se deplacer 
         if a>=d:                                            #On verifie que le robot a la place de se deplacer a droite 
-            move_cmd.angular.z=-1,57                             # si oui                                  
+            move_cmd.angular.z=1,57                             # si oui                                  
             move_cmd.linear.x=0.1                               # 
         else:                                                   #si non        
             if b>=d:                                        #On verifie que le robot a la place de se deplacer au centre
@@ -49,7 +49,7 @@ def callback_laser(laser, odometry):
 
             else:                                               #si non
                 if a>=d:                                    #On verifie que le robot a la place de se deplacer a gauche
-                    move_cmd.angular.z=1,57                      #si oui
+                    move_cmd.angular.z=-1,57                      #si oui
                     move_cmd.linear.x=0.1                       #
                 else:                                       #si non on fait un demi tour
                     move_cmd.angular.z=3,14
