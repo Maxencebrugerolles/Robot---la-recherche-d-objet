@@ -20,10 +20,6 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
-#linear_vel:(float)
-#angular_vel:(float)
-#lateral_velocity:(float)
-#steering_angle:(float)
 
 def callback_laser(laser, odometry):
     print("Inside Callback Laser,Odometry: ")
@@ -35,7 +31,7 @@ def callback_laser(laser, odometry):
     b=laser.ranges[14] 
     c=laser.ranges[15]
     
-    theta=(numpy.arctan((b*numpy.cos(a)-c)/(numpy.sin(a)*b)))*(3.14/180)
+    theta=(numpy.arctan((b*numpy.cos(a)-c)/(numpy.sin(a)*b)))
 
     move_cmd.linear.x=0.05
     
