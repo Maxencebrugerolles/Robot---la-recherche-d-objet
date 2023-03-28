@@ -34,10 +34,14 @@ def callback_laser(laser, odometry):
                                                        
     b=laser.ranges[1] 
     c=laser.ranges[0]
+    
     print("b ",b)
     print("c " , c)
+    
     theta=(numpy.arctan2((b*numpy.cos(a)-c),(numpy.sin(a)*b)))
+    
     print ("theta " , theta)
+    
     move_cmd.linear.x=0.03
     
     theta_desire = 1.0 * (c - 0.2)
