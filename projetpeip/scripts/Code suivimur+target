@@ -31,8 +31,7 @@ omega_max = 2.5
 #else marker_nb = 2 :
     #print("j'ai trouvé le objet")
 
-while i !=1:
-    
+while i !=1:  
     def callback_laser(laser, odometry , markers):
         print("Inside Callback Laser,Odometry,Marker: ")
         global speed_max
@@ -61,25 +60,41 @@ while i !=1:
         theta_desire = -0.3    
     
         move_cmd.angular.z= 0.6*(theta - theta_desire)
-   
-        #reçevoir le numéro du marker
-    
-        #marker_nb=info reçue de LIMO
-   
-        #if marker_nb = 1 :
-            #print("j'ai trouvé le stylo")
-        #else marker_nb = 2 :
-            #print("j'ai trouvé le directeur")
-        #else marker_nb = 2 :
-            #print("j'ai trouvé le objet")
     
         if marker_nb not null :
             i=1
             break
         
+        
 move_cmd.angular.z=3,14
 
-
+def callback_laser(laser, odometry):
+    print("Inside Callback Laser,Odometry: ")
+    global omega_max
+    global speed_max
+    
+    a=3.14/15.0                                                   
+                                                       
+    b=laser.ranges[14] 
+    c=laser.ranges[15]
+    
+    print("b ",b)
+    print("c " , c)
+    
+    theta=(numpy.arctan2((b*numpy.cos(a)-c),(numpy.sin(a)*b)))
+    
+    print ("theta " , theta)
+    
+    move_cmd.linear.x=0.03
+    
+    theta_desire = 1.0 * (c - 0.2)
+    
+    if (theta_desire > 0.3):
+        theta_desire = 0.3
+    if (theta_desire < -0.3):
+        theta_desire = -0.3    
+    
+    move_cmd.angular.z= 0.6*(theta - theta_desire)
     
         
         
