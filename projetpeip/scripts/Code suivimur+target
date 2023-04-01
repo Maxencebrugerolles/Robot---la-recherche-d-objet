@@ -20,10 +20,11 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
-def callback_laser(laser, odometry):
-    print("Inside Callback Laser,Odometry: ")
-    global omega_max
+def callback_laser(laser, odometry , markers):
+    print("Inside Callback Laser,Odometry,Marker: ")
     global speed_max
+    global omega_max
+    global current_marker
     
     a=3.14/15.0                                                   
                                                        
