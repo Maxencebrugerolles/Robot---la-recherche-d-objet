@@ -20,11 +20,6 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
-#linear_vel:(float)
-#angular_vel:(float)
-#lateral_velocity:(float)
-#steering_angle:(float)
-
 def callback_laser(laser, odometry):
     print("Inside Callback Laser,Odometry: ")
     global omega_max
@@ -52,26 +47,7 @@ def callback_laser(laser, odometry):
         theta_desire = -0.3    
     
     move_cmd.angular.z= 0.6*(theta - theta_desire)
-    
-    
-    #if c>0.2:
-        #move_cmd.angular.z=a
-        #move_cmd.linear.x=0.05
-        #print("a")
-        #if b==0.2:
-            #move_cmd.angular.z=a
-            #move_cmd.linear.x=0.05
-            #print("b")
-            #move_cmd.angular.z=-theta
-    #if c<0.2:
-        #move_cmd.angular.z=a
-        #move_cmd.linear.x=0.05
-        #print("c")
-        #if b==0.2:
-            #move_cmd.angular.z=a
-            #move_cmd.linear.x=0.05
-            #print("d")
-            #move_cmd.angular.z=-theta
+   
         
     #pub.publish(move_cmd) 
     
