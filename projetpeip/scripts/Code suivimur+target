@@ -20,23 +20,23 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
-#reçevoir le numéro du marker
-    
-#marker_nb=info reçue de LIMO
-   
-#if marker_nb = 1 :
-    #print("j'ai trouvé le stylo")
-#else marker_nb = 2 :
-    #print("j'ai trouvé le directeur")
-#else marker_nb = 2 :
-    #print("j'ai trouvé le objet")
-
 while i !=1:  
     def callback_laser(laser, odometry , markers):
         print("Inside Callback Laser,Odometry,Marker: ")
         global speed_max
         global omega_max
         global current_marker
+        
+        #reçevoir le numéro du marker
+    
+        #marker_nb=info reçue de LIMO
+   
+        #if marker_nb = 1 :
+            #print("j'ai trouvé le stylo")
+        #else marker_nb = 2 :
+            #print("j'ai trouvé le directeur")
+        #else marker_nb = 2 :
+            #print("j'ai trouvé le objet")
     
         a=3.14/15.0                                                   
                                                        
