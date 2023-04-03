@@ -20,6 +20,9 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
+# sens 0 : suivi mur de gauche
+sens = 1
+
 #linear_vel:(float)
 #angular_vel:(float)
 #lateral_velocity:(float)
@@ -31,12 +34,13 @@ def callback_laser(laser, odometry):
     global speed_max
     
     a=3.14/15.0                                                   
-                                                       
-    #b=laser.ranges[1] 
-    #c=laser.ranges[0]
-    
-    b=laser.ranges[14] 
-    c=laser.ranges[15]
+                       
+    if sens:                       
+        b=laser.ranges[1] 
+        c=laser.ranges[0]        
+    else:    
+        b=laser.ranges[14] 
+        c=laser.ranges[15]
     
     
     print("b ",b)
@@ -46,9 +50,13 @@ def callback_laser(laser, odometry):
     
     print ("theta " , theta)
     
-    move_cmd.linear.x=0.2
-    distance_mur = 0.4
-    theta_desire = -10.0 * (c - distance_mur)
+    move_cmd.linear.x=0.3
+    distance_mur = 0.5
+    
+    if sens:
+        theta_desire = -10.0 * (c - distance_mur)
+    else:    
+        theta_desire = -10.0 * (c - distance_mur)
     
     print ("theta_desire " , theta_desire)
     
@@ -58,8 +66,27 @@ def callback_laser(laser, odometry):
     if (theta_desire < -seuil_angle):
         theta_desire = -seuil_angle    
     
-    move_cmd.angular.z= 0.6*(theta - theta_desire)
+    if sens:
+        move_cmd.angular.z= -0.6*(theta - theta_desire)
+    else:
+        move_cmd.angular.z= 0.6*(theta - theta_desire)
     
+    print ("laser.ranges[7] " , laser.ranges[7])
+    
+    for i in range(3,10):
+        if (laser.ranges[i] < 0.5 and laser.ranges[i] > 0.01 ):
+            move_cmd.linear.x = 0.0
+            if sens:
+                move_cmd.angular.z = 0.5
+            else:
+                move_cmd.angular.z = -0.5
+                
+    if b > 1.0 and c > 1.0:
+            move_cmd.linear.x = 0.0
+            if sens:
+                move_cmd.angular.z = -0.5
+            else:
+                move_cmd.angular.z = 0.5
     
     #if c>0.2:
         #move_cmd.angular.z=a
