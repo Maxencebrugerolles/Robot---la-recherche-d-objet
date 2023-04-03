@@ -22,58 +22,67 @@ omega_max = 2.5
 
 i = 0
 
-while i !=1:  
-    def callback_laser(laser, odometry , markers):
-        print("Inside Callback Laser,Odometry,Marker: ")
-        global speed_max
-        global omega_max
-        global current_marker
+#while i !=1:  
+    #def callback_laser(laser, odometry , markers):
+        #print("Inside Callback Laser,Odometry,Marker: ")
+        #global speed_max
+        #global omega_max
+        #global current_marker
         
-        #reçevoir le numéro du marker
+        ##reçevoir le numéro du marker
     
-        #marker_nb=info reçue de LIMO
+        ##marker_nb=info reçue de LIMO
    
-        #if marker_nb = 1 :
-            #print("j'ai trouvé le stylo")
-        #else marker_nb = 2 :
-            #print("j'ai trouvé le directeur")
-        #else marker_nb = 2 :
-            #print("j'ai trouvé le objet")
+        ##if marker_nb = 1 :
+            ##print("j'ai trouvé le stylo")
+        ##else marker_nb = 2 :
+            ##print("j'ai trouvé le directeur")
+        ##else marker_nb = 2 :
+            ##print("j'ai trouvé le objet")
     
-        a=3.14/15.0                                                   
+        #a=3.14/15.0                                                   
                                                        
-        b=laser.ranges[1] 
-        c=laser.ranges[0]
+        #b=laser.ranges[1] 
+        #c=laser.ranges[0]
     
-        print("b ",b)
-        print("c " , c)
+        #print("b ",b)
+        #print("c " , c)
     
-        theta=(numpy.arctan2((b*numpy.cos(a)-c),(numpy.sin(a)*b)))
+        #theta=(numpy.arctan2((b*numpy.cos(a)-c),(numpy.sin(a)*b)))
     
-        print ("theta " , theta)
+        #print ("theta " , theta)
     
-        move_cmd.linear.x=0.03
+        #move_cmd.linear.x=0.03
     
-        theta_desire = 1.0 * (c - 0.2)
+        #theta_desire = 1.0 * (c - 0.2)
     
-        if (theta_desire > 0.3):
-        theta_desire = 0.3
-        if (theta_desire < -0.3):
-        theta_desire = -0.3    
+        #if (theta_desire > 0.3):
+        #theta_desire = 0.3
+        #if (theta_desire < -0.3):
+        #theta_desire = -0.3    
     
-        move_cmd.angular.z= 0.6*(theta - theta_desire)
+        #move_cmd.angular.z= 0.6*(theta - theta_desire)
     
-        if marker_nb not null :
-            i=1
-            break
+        #if marker_nb not null :
+            #i=1
+            #break
         
         
 move_cmd.angular.z=3,14
 
-def callback_laser(laser, odometry):
+def callback_laser(laser, aruco):
     print("Inside Callback Laser,Odometry: ")
     global omega_max
     global speed_max
+    
+    
+    len(aruco.markers)  # nombre de markers
+    
+    aruco.markers[i] # acces au marker numero i
+    
+    aruco.markers[i].id #  acces a l'id du marker numero i
+    
+    aruco.markers[i].pose.pose.position.z
     
     a=3.14/15.0                                                   
                                                        
@@ -131,11 +140,12 @@ if __name__ == '__main__':
     omega_max = rospy.get_param('~omega_max', 2.5)
     
     laser_sub = message_filters.Subscriber("/simple_scan", LaserScan)
-    odometry_sub = message_filters.Subscriber("/odom", Odometry)
+    #odometry_sub = message_filters.Subscriber("/odom", Odometry)
     #command_sub = message_filters.Subscriber("/cmd_vel",Twist)
+    aruco_sub = message_filters.Subscriber("/aruco_marker_publisher/markers", /MarkerArray)
     
        
-    ts = message_filters.ApproximateTimeSynchronizer([laser_sub, odometry_sub], 10, 0.1, allow_headerless=True)
+    ts = message_filters.ApproximateTimeSynchronizer([laser_sub, aruco_sub], 10, 0.1, allow_headerless=True)
     ts.registerCallback(callback_laser)
        
     #ts = message_filters.ApproximateTimeSynchronizer([command_sub], 10, 0.1, allow_headerless=True)
