@@ -20,6 +20,8 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
+i = 0
+
 while i !=1:  
     def callback_laser(laser, odometry , markers):
         print("Inside Callback Laser,Odometry,Marker: ")
