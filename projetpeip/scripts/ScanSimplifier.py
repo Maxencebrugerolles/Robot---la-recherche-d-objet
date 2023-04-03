@@ -57,7 +57,7 @@ def simplify_laser( laser):
 
 if __name__ == '__main__':
     
-    #Simulation = rospy.get_param('simulation', false)
+    Simulation = rospy.get_param('simulation', False)
     
     
     rospy.init_node('laser_simplifier', anonymous=True)

@@ -32,8 +32,12 @@ def callback_laser(laser, odometry):
     
     a=3.14/15.0                                                   
                                                        
-    b=laser.ranges[1] 
-    c=laser.ranges[0]
+    #b=laser.ranges[1] 
+    #c=laser.ranges[0]
+    
+    b=laser.ranges[14] 
+    c=laser.ranges[15]
+    
     
     print("b ",b)
     print("c " , c)
@@ -42,14 +46,17 @@ def callback_laser(laser, odometry):
     
     print ("theta " , theta)
     
-    move_cmd.linear.x=0.03
+    move_cmd.linear.x=0.2
+    distance_mur = 0.4
+    theta_desire = -10.0 * (c - distance_mur)
     
-    theta_desire = 1.0 * (c - 0.2)
+    print ("theta_desire " , theta_desire)
     
-    if (theta_desire > 0.3):
-        theta_desire = 0.3
-    if (theta_desire < -0.3):
-        theta_desire = -0.3    
+    seuil_angle = 0.5
+    if (theta_desire > seuil_angle):
+        theta_desire = seuil_angle
+    if (theta_desire < -seuil_angle):
+        theta_desire = -seuil_angle    
     
     move_cmd.angular.z= 0.6*(theta - theta_desire)
     
