@@ -20,61 +20,17 @@ move_cmd = Twist()
 speed_max = 0.5
 omega_max = 2.5
 
-i = 0
-
-#while i !=1:  
-    #def callback_laser(laser, odometry , markers):
-        #print("Inside Callback Laser,Odometry,Marker: ")
-        #global speed_max
-        #global omega_max
-        #global current_marker
-        
-        ##reçevoir le numéro du marker
-    
-        ##marker_nb=info reçue de LIMO
-   
-        ##if marker_nb = 1 :
-            ##print("j'ai trouvé le stylo")
-        ##else marker_nb = 2 :
-            ##print("j'ai trouvé le directeur")
-        ##else marker_nb = 2 :
-            ##print("j'ai trouvé le objet")
-    
-        #a=3.14/15.0                                                   
-                                                       
-        #b=laser.ranges[1] 
-        #c=laser.ranges[0]
-    
-        #print("b ",b)
-        #print("c " , c)
-    
-        #theta=(numpy.arctan2((b*numpy.cos(a)-c),(numpy.sin(a)*b)))
-    
-        #print ("theta " , theta)
-    
-        #move_cmd.linear.x=0.03
-    
-        #theta_desire = 1.0 * (c - 0.2)
-    
-        #if (theta_desire > 0.3):
-        #theta_desire = 0.3
-        #if (theta_desire < -0.3):
-        #theta_desire = -0.3    
-    
-        #move_cmd.angular.z= 0.6*(theta - theta_desire)
-    
-        #if marker_nb not null :
-            #i=1
-            #break
-        
-        
-move_cmd.angular.z=3,14
+sens = 1
 
 def callback_laser(laser, aruco):
     print("Inside Callback Laser,Odometry: ")
     global omega_max
     global speed_max
     
+    len(aruco.markers)=nb
+    aruco.detectMarkers(markerIds)=IDs
+    
+    for i in range(0,10):
     
     len(aruco.markers)  # nombre de markers
     
@@ -85,9 +41,14 @@ def callback_laser(laser, aruco):
     aruco.markers[i].pose.pose.position.z
     
     a=3.14/15.0                                                   
-                                                       
-    b=laser.ranges[14] 
-    c=laser.ranges[15]
+                       
+    if sens:                       
+        b=laser.ranges[1] 
+        c=laser.ranges[0]        
+    else:    
+        b=laser.ranges[14] 
+        c=laser.ranges[15]
+    
     
     print("b ",b)
     print("c " , c)
@@ -96,16 +57,43 @@ def callback_laser(laser, aruco):
     
     print ("theta " , theta)
     
-    move_cmd.linear.x=0.03
+    move_cmd.linear.x=0.3
+    distance_mur = 0.5
     
-    theta_desire = 1.0 * (c - 0.2)
+    if sens:
+        theta_desire = -10.0 * (c - distance_mur)
+    else:    
+        theta_desire = -10.0 * (c - distance_mur)
     
-    if (theta_desire > 0.3):
-        theta_desire = 0.3
-    if (theta_desire < -0.3):
-        theta_desire = -0.3    
+    print ("theta_desire " , theta_desire)
     
-    move_cmd.angular.z= 0.6*(theta - theta_desire)
+    seuil_angle = 0.5
+    if (theta_desire > seuil_angle):
+        theta_desire = seuil_angle
+    if (theta_desire < -seuil_angle):
+        theta_desire = -seuil_angle    
+    
+    if sens:
+        move_cmd.angular.z= -0.6*(theta - theta_desire)
+    else:
+        move_cmd.angular.z= 0.6*(theta - theta_desire)
+    
+    print ("laser.ranges[7] " , laser.ranges[7])
+        
+    for i in range(3,10):
+        if (laser.ranges[i] < 0.5 and laser.ranges[i] > 0.01 ):
+            move_cmd.linear.x = 0.0
+            if sens:
+                move_cmd.angular.z = 0.5
+            else:
+                move_cmd.angular.z = -0.5
+                
+    if b > 1.0 and c > 1.0:
+            move_cmd.linear.x = 0.0
+            if sens:
+                move_cmd.angular.z = -0.5
+            else:
+                move_cmd.angular.z = 0.5
     
         
         
