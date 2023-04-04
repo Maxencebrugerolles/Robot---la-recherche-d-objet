@@ -22,6 +22,14 @@ omega_max = 2.5
 
 sens = 1
 
+    #len(aruco.markers)  # nombre de markers
+    
+    #aruco.markers[i] # acces au marker numero i
+    
+    #aruco.markers[i].id #  acces a l'id du marker numero i
+    
+    #aruco.markers[i].pose.pose.position.z
+    
 def callback_laser(laser, aruco):
     print("Inside Callback Laser,Odometry: ")
     global omega_max
@@ -32,18 +40,10 @@ def callback_laser(laser, aruco):
     searchedID = 123
     
     for i in range(0,nb):
-        if IDs[i] == searchedID
+        if IDs[i] == searchedID :
             move_cmd.linear.x = 0.0
             sens = abs(sens - 1)
-    
-    #len(aruco.markers)  # nombre de markers
-    
-    #aruco.markers[i] # acces au marker numero i
-    
-    #aruco.markers[i].id #  acces a l'id du marker numero i
-    
-    #aruco.markers[i].pose.pose.position.z
-    
+
     a=3.14/15.0                                                   
                        
     if sens:                       
