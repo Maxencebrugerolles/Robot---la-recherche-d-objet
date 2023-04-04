@@ -29,16 +29,20 @@ def callback_laser(laser, aruco):
     
     len(aruco.markers)=nb
     aruco.detectMarkers(markerIds)=IDs
+    searchedID = 123
     
-    for i in range(0,10):
+    for i in range(0,nb):
+        if IDs[i] == searchedID
+            move_cmd.linear.x = 0.0
+            sens = sens - 1
     
-    len(aruco.markers)  # nombre de markers
+    #len(aruco.markers)  # nombre de markers
     
-    aruco.markers[i] # acces au marker numero i
+    #aruco.markers[i] # acces au marker numero i
     
-    aruco.markers[i].id #  acces a l'id du marker numero i
+    #aruco.markers[i].id #  acces a l'id du marker numero i
     
-    aruco.markers[i].pose.pose.position.z
+    #aruco.markers[i].pose.pose.position.z
     
     a=3.14/15.0                                                   
                        
