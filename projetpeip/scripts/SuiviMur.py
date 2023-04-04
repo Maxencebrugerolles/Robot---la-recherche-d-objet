@@ -76,6 +76,13 @@ def callback_laser(laser, odometry):
     # sens 0 : suivi mur de gauche
     sens = 1
     
+    if sens:                       
+        b=laser.ranges[1] 
+        c=laser.ranges[0]        
+    else:    
+        b=laser.ranges[14] 
+        c=laser.ranges[15]
+        
     for i in range(3,10):
         if (laser.ranges[i] < 0.5 and laser.ranges[i] > 0.01 ):
             move_cmd.linear.x = 0.0
