@@ -34,7 +34,7 @@ def callback_laser(laser, aruco):
     for i in range(0,nb):
         if IDs[i] == searchedID
             move_cmd.linear.x = 0.0
-            sens = sens - 1
+            sens = abs(sens - 1)
     
     #len(aruco.markers)  # nombre de markers
     
