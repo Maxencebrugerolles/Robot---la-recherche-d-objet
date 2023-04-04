@@ -72,16 +72,6 @@ def callback_laser(laser, odometry):
         move_cmd.angular.z= 0.6*(theta - theta_desire)
     
     print ("laser.ranges[7] " , laser.ranges[7])
-    
-    # sens 0 : suivi mur de gauche
-    sens = 1
-    
-    if sens:                       
-        b=laser.ranges[1] 
-        c=laser.ranges[0]        
-    else:    
-        b=laser.ranges[14] 
-        c=laser.ranges[15]
         
     for i in range(3,10):
         if (laser.ranges[i] < 0.5 and laser.ranges[i] > 0.01 ):
