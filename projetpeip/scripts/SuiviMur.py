@@ -73,6 +73,9 @@ def callback_laser(laser, odometry):
     
     print ("laser.ranges[7] " , laser.ranges[7])
     
+    # sens 0 : suivi mur de gauche
+    sens = 1
+    
     for i in range(3,10):
         if (laser.ranges[i] < 0.5 and laser.ranges[i] > 0.01 ):
             move_cmd.linear.x = 0.0
@@ -88,25 +91,7 @@ def callback_laser(laser, odometry):
             else:
                 move_cmd.angular.z = 0.5
     
-    #if c>0.2:
-        #move_cmd.angular.z=a
-        #move_cmd.linear.x=0.05
-        #print("a")
-        #if b==0.2:
-            #move_cmd.angular.z=a
-            #move_cmd.linear.x=0.05
-            #print("b")
-            #move_cmd.angular.z=-theta
-    #if c<0.2:
-        #move_cmd.angular.z=a
-        #move_cmd.linear.x=0.05
-        #print("c")
-        #if b==0.2:
-            #move_cmd.angular.z=a
-            #move_cmd.linear.x=0.05
-            #print("d")
-            #move_cmd.angular.z=-theta
-        
+
     #pub.publish(move_cmd) 
     
     # vitesse lineaire et angulaire du robot
