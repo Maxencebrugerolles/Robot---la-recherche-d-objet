@@ -41,8 +41,9 @@ def callback_laser(laser, aruco):
     
     for i in range(0,nb):
         if IDs[i] == searchedID :
-            move_cmd.linear.x = 0.0
-            sens = abs(sens - 1)
+            if aruco.markers[i].pose.pose.position.z < 0,5 :
+                move_cmd.linear.x = 0.0
+                sens = abs(sens - 1)
 
     a=3.14/15.0                                                   
                        
