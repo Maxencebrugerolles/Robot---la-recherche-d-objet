@@ -37,7 +37,7 @@ def callback_laser(laser, aruco):
     
     len(aruco.markers)=nb
     aruco.detectMarkers(markerIds)=IDs
-    searchedID = 123
+    searchedID = 1
     
     for i in range(0,nb):
         if IDs[i] == searchedID :
