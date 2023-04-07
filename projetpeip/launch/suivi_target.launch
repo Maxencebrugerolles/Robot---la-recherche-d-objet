@@ -1,16 +1,10 @@
 <?xml version="1.0"?>
 <launch>
     
-    <arg name="speed_max" default="0.5"/>
-    <arg name="omega_max" default="2.0"/>
     
-     <include file="$(find limo_tp)/launch/limo_simple_joystick.launch">
-        <arg name="mode_robot_environnement" value="reel"/>
-        <arg name="speed_max" value="$(arg speed_max)"/>
-        <arg name="omega_max" value="$(arg omega_max)"/>
-    </include>
+    <node name="suivi_target" pkg="limo_tp" type="target.py" output="screen"/>
     
-    <node name="suivi_target" pkg="limo_tp" type="SuiviTarget.py" output="screen"/>
+        <node name="scan_simplifier" pkg="limo_tp" type="ScanSimplifier.py" output="screen"/>
   
 </launch>
 
