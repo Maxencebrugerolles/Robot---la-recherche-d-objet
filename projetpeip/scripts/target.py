@@ -26,32 +26,23 @@ sens = 0
 
 roule = 1
 
-
-    #len(aruco.markers)  # nombre de markers
-    
-    #aruco.markers[i] # acces au marker numero i
-    
-    #aruco.markers[i].id #  acces a l'id du marker numero i
-    
-    #aruco.markers[i].pose.pose.position.z
-    
 searchedID = 1
     
 def aruco (msg):
     global roule
     global searchedID
     global sens
+    
     nb=len(msg.markers)
-    #searchedID = 1
+
     for i in range(0,nb):
         if msg.markers[i].id == searchedID :
             d = msg.markers[i].pose.pose.position.z
             print("distance ",d)
+            
             if d<0.6:
-                
                 print("fini")
                 sens = not sens
-
                 
                 if(searchedID ==2):
                     roule = 0
